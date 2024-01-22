@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/airchains-network/settlement_layer_calls_api/chain"
+	"github.com/ComputerKeeda/junctionAPI/chain"
 	"github.com/ignite/cli/ignite/pkg/cosmosaccount"
 	"github.com/ignite/cli/ignite/pkg/cosmosclient"
 )
@@ -19,7 +19,7 @@ func SettlementLayer() (client cosmosclient.Client, account cosmosaccount.Accoun
 	addressPrefix := "air" // "cosmos"
 
 	sRPC := "https://devnet-jrpc.airchains.network:443" // tendermint
-	sAPI = "https://devnet.airchains.network"       // Blockchain API
+	sAPI = "https://devnet.airchains.network"           // Blockchain API
 
 	client, err := cosmosclient.New(ctx, cosmosclient.WithGas(gasLimit), cosmosclient.WithAddressPrefix(addressPrefix), cosmosclient.WithNodeAddress(sRPC), cosmosclient.WithKeyringDir(accountPath))
 	if err != nil {

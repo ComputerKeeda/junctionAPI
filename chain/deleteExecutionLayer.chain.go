@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/ComputerKeeda/junctionAPI/model"
 	"github.com/airchains-network/airsettle/x/airsettle/types"
-	"github.com/airchains-network/settlement_layer_calls_api/model"
 	"github.com/ignite/cli/ignite/pkg/cosmosaccount"
 	cosmosclient "github.com/ignite/cli/ignite/pkg/cosmosclient"
 )

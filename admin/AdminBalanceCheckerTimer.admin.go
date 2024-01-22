@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/airchains-network/settlement_layer_calls_api/chain"
+	"github.com/ComputerKeeda/junctionAPI/chain"
 	"github.com/ignite/cli/ignite/pkg/cosmosaccount"
 	"github.com/ignite/cli/ignite/pkg/cosmosclient"
 	"github.com/syndtr/goleveldb/leveldb"

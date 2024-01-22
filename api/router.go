@@ -7,7 +7,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/airchains-network/settlement_layer_calls_api/api/handler"
+	"github.com/ComputerKeeda/junctionAPI/api/handler"
 	"github.com/gin-gonic/gin"
 	"github.com/ignite/cli/ignite/pkg/cosmosaccount"
 	"github.com/ignite/cli/ignite/pkg/cosmosclient"

@@ -5,10 +5,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/airchains-network/settlement_layer_calls_api/admin"
-	"github.com/airchains-network/settlement_layer_calls_api/api"
-	"github.com/airchains-network/settlement_layer_calls_api/chain"
-	"github.com/airchains-network/settlement_layer_calls_api/config"
+	"github.com/ComputerKeeda/junctionAPI/admin"
+	"github.com/ComputerKeeda/junctionAPI/api"
+	"github.com/ComputerKeeda/junctionAPI/chain"
+	"github.com/ComputerKeeda/junctionAPI/config"
 )
 
 func main() {

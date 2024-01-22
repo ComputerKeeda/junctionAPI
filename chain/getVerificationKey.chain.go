@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/airchains-network/settlement_layer_calls_api/model"
+	"github.com/ComputerKeeda/junctionAPI/model"
 )
 
 func GetVerificationKeyById(id string, sAPI string) (success bool, chainId string) {

@@ -17,10 +17,10 @@ Sample Response Body:
 import (
 	"context"
 
-	"github.com/airchains-network/settlement_layer_calls_api/chain"
+	"github.com/ComputerKeeda/junctionAPI/chain"
 	"github.com/gin-gonic/gin"
 
-	// "github.com/airchains-network/settlement_layer_calls_api/model"
+	// "github.com/ComputerKeeda/junctionAPI/model"
 	"github.com/ignite/cli/ignite/pkg/cosmosaccount"
 	cosmosclient "github.com/ignite/cli/ignite/pkg/cosmosclient"
 	"github.com/syndtr/goleveldb/leveldb"

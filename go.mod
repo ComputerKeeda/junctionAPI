@@ -1,4 +1,4 @@
-module github.com/airchains-network/settlement_layer_calls_api
+module github.com/ComputerKeeda/junctionAPI
 
 go 1.21.1
 
