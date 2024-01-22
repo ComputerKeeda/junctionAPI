@@ -3,10 +3,13 @@ package config
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/ComputerKeeda/junctionAPI/chain"
 	"github.com/ignite/cli/ignite/pkg/cosmosaccount"
 	"github.com/ignite/cli/ignite/pkg/cosmosclient"
+	"github.com/joho/godotenv"
 )
 
 func SettlementLayer() (client cosmosclient.Client, account cosmosaccount.Account, addr string, ctx context.Context, sAPI string) {
@@ -18,8 +21,15 @@ func SettlementLayer() (client cosmosclient.Client, account cosmosaccount.Accoun
 	gasLimit := "70000000"
 	addressPrefix := "air" // "cosmos"
 
-	sRPC := "https://devnet-jrpc.airchains.network:443" // tendermint
-	sAPI = "https://devnet.airchains.network"           // Blockchain API
+	// sRPC := "https://devnet-jrpc.airchains.network:443" // tendermint
+	// sAPI = "https://devnet.airchains.network"           // Blockchain API
+	// Load .env file
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	sRPC := os.Getenv("SETTLEMENT_RPC")
+	sAPI := os.Getenv("SETTLEMENT_API")
 
 	client, err := cosmosclient.New(ctx, cosmosclient.WithGas(gasLimit), cosmosclient.WithAddressPrefix(addressPrefix), cosmosclient.WithNodeAddress(sRPC), cosmosclient.WithKeyringDir(accountPath))
 	if err != nil {
