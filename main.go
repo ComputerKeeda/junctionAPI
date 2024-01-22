@@ -13,8 +13,8 @@ import (
 
 func main() {
 
-	// connect to blockchain (settlement layer) && create admin wallet if do not exists
-	client, account, addr, ctx, sAPI := config.SettlementLayer()
+	// connect to junction && create admin wallet if do not exists
+	client, account, addr, ctx, sAPI := config.JunctionConnection()
 
 	// connect to levelDB
 	dbIPaddress := config.LevelDB()

@@ -3,11 +3,13 @@ module github.com/ComputerKeeda/junctionAPI
 go 1.21.1
 
 require (
+	github.com/ComputerKeeda/junction v0.0.0-20240122134017-2e69a46f58aa
 	github.com/airchains-network/airsettle v0.0.3
 	github.com/airchains-network/gnark v1.0.1
 	github.com/consensys/gnark-crypto v0.12.2-0.20231208203441-d4eab6ddd2af
 	github.com/cosmos/cosmos-sdk v0.47.5
 	github.com/gin-gonic/gin v1.8.1
+	github.com/google/uuid v1.3.0
 	github.com/ignite/cli v0.27.1
 	github.com/joho/godotenv v1.5.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d

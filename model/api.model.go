@@ -24,7 +24,7 @@ type RequestBodyGetVerificationKeyById struct {
 
 // RequestBody is the structure for the incoming JSON request
 type RequestBodyAddExecutionLayer struct {
-	VerificationKey string `json:"verification_key"`
+	VerificationKey []byte `json:"verification_key"`
 	ChainInfo       string `json:"chain_info"`
 }
 

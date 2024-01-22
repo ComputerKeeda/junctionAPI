@@ -12,7 +12,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func SettlementLayer() (client cosmosclient.Client, account cosmosaccount.Account, addr string, ctx context.Context, sAPI string) {
+func JunctionConnection() (client cosmosclient.Client, account cosmosaccount.Account, addr string, ctx context.Context, sAPI string) {
 
 	// connect to blockchain (settlement layer)
 	accountName := "admin"
@@ -28,10 +28,10 @@ func SettlementLayer() (client cosmosclient.Client, account cosmosaccount.Accoun
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	sRPC := os.Getenv("SETTLEMENT_RPC")
-	sAPI := os.Getenv("SETTLEMENT_API")
+	sRPC := os.Getenv("TENDERMINT_RPC")
+	sAPI = os.Getenv("SETTLEMENT_API")
 
-	client, err := cosmosclient.New(ctx, cosmosclient.WithGas(gasLimit), cosmosclient.WithAddressPrefix(addressPrefix), cosmosclient.WithNodeAddress(sRPC), cosmosclient.WithKeyringDir(accountPath))
+	client, err = cosmosclient.New(ctx, cosmosclient.WithGas(gasLimit), cosmosclient.WithAddressPrefix(addressPrefix), cosmosclient.WithNodeAddress(sRPC), cosmosclient.WithKeyringDir(accountPath))
 	if err != nil {
 		panic(err)
 	}
