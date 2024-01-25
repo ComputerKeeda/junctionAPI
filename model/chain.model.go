@@ -1,17 +1,24 @@
 package model
 
-type ExecutionLayerTrueResponseBody struct {
-	ExeLayer struct {
-		Validator            []string `json:"validator"`
+type StationResponseBody struct {
+	Station struct {
+		Tracks			   []string `json:"tracks"`
 		VotingPower          []string `json:"votingPower"`
-		LatestBatch          string   `json:"latestBatch"`
+		LatestPod            string   `json:"latestPod"`
 		LatestMerkleRootHash string   `json:"latestMerkleRootHash"`
 		VerificationKey      string   `json:"verificationKey"`
-		ChainInfo            string   `json:"chainInfo"`
-		ID                   string   `json:"id"`
+		StationInfo          string   `json:"stationInfo"`
+		Id                   string   `json:"id"`
 		Creator              string   `json:"creator"`
-	} `json:"exelayer"`
+	} `json:"station"`
 }
+
+type StationErrorResponseBody struct {
+	Code    int      `json:"code"`
+	Message string   `json:"message"`
+	Details []string `json:"details"`
+}
+
 
 type ExecutionLayerErrorResponseBody struct {
 	Code    int      `json:"code"`

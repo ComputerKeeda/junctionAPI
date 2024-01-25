@@ -4,13 +4,12 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-
 	"github.com/ComputerKeeda/junctionAPI/model"
 )
 
-func GetExecutionLayerByAddress(address string, sAPI string) (success bool, chainId string) {
+func GetStationByAddress(address string, sAPI string) (success bool, chainId string) {
 
-	apiURL := sAPI + "/airchains-network/airsettle/airsettle/show_execution_layer_by_address/" + address
+	apiURL := sAPI + "/ComputerKeeda/junction/junction/get_station_details_by_address/" + address
 
 	// Make the GET request
 	response, err := http.Get(apiURL)
@@ -26,22 +25,22 @@ func GetExecutionLayerByAddress(address string, sAPI string) (success bool, chai
 	}
 
 	// Check the structure of the response body to determine the appropriate struct
-	var executionLayerResponse model.ExecutionLayerTrueResponseBody
-	if err := json.Unmarshal(body, &executionLayerResponse); err == nil {
-		if len(executionLayerResponse.ExeLayer.ID) == 0 {
+	var stationResponse model.StationResponseBody
+	if err := json.Unmarshal(body, &stationResponse); err == nil {
+		if len(stationResponse.Station.Id) == 0 {
 			return false, ""
 		} else {
-			return true, executionLayerResponse.ExeLayer.ID
+			return true, stationResponse.Station.Id
 		}
 	}
 
 	// code may not reach here... but just in case
-	var executionLayerErrResponse model.ExecutionLayerErrorResponseBody
-	if err := json.Unmarshal(body, &executionLayerErrResponse); err == nil {
-		// Successfully unmarshaled into ExecutionLayerErrorResponseBody
+	var stationErrResponse model.StationErrorResponseBody
+	if err := json.Unmarshal(body, &stationErrResponse); err == nil {
 		return false, ""
 	}
 
 	// if not both data type
 	return false, ""
+
 }

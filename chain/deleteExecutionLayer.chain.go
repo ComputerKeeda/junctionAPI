@@ -17,33 +17,41 @@ import (
 func DeleteExecutionLayer(client cosmosclient.Client, ctx context.Context, account cosmosaccount.Account, addr string, sAPI string) (success bool, data string, error_msg string) {
 
 	// check if there is a chain id under this account
-	apiURL := sAPI + "/airchains-network/airsettle/airsettle/show_execution_layer_by_address/" + addr
+	apiURL := sAPI + "/ComputerKeeda/junction/junction/get_station_details_by_address/" + addr
 
 	// Make the GET request
 	response, err := http.Get(apiURL)
 	if err != nil {
-		return false, "", "Error in Requesting to Execution Layer Blockchain API"
+		return false, "", "Error in Requesting to Junction Blockchain API"
 	}
 	defer response.Body.Close()
 
 	// Read the response body
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return false, "", "Error in Requesting to Execution Layer Blockchain API"
+		return false, "", "Error in Requesting to Junction Blockchain API"
 	}
 
 	// Check the structure of the response body to determine the appropriate struct
-	var executionLayerResponse model.ExecutionLayerTrueResponseBody
-	err = json.Unmarshal(body, &executionLayerResponse)
+	var stationResponse model.StationResponseBody
+	err = json.Unmarshal(body, &stationResponse)
 
 	if err != nil {
-		return false, "", "Error in Requesting to Execution Layer Blockchain API"
+		return false, "", "Error in Requesting to Junction Blockchain API"
 	}
 
-	latestBatch, err := strconv.ParseUint(executionLayerResponse.ExeLayer.LatestBatch, 10, 64)
-	if latestBatch > 10 {
-		return false, "", "Cannot delete a chain with batch number greater than 0"
+	latestPodString := (stationResponse.Station.LatestPod)
+	// string to uint64 conversion
+	latestPod, err := strconv.ParseUint(latestPodString, 10, 64)
+	if err != nil {
+		return false, "", "Error in Requesting to Junction Blockchain API"
 	}
+
+	if latestPod > 10 {
+		return false, "", "Cannot delete a station with pod number greater than 0"
+	}
+
+	// ! make changes from here to delete execution layer when function is created
 
 	// delete the execution layer associated with this address
 	msg := &types.MsgDeleteExecutionLayer{

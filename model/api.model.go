@@ -8,12 +8,12 @@ type ResponseBody struct {
 }
 
 // RequestBody is the structure for the incoming JSON request
-type RequestBodyGetExecutionLayerByAddress struct {
+type RequestBodyGetStationByAddress struct {
 	Address string `json:"address"`
 }
 
 // RequestBody is the structure for the incoming JSON request
-type RequestBodyGetExecutionLayerById struct {
+type RequestBodyGetStationById struct {
 	ChainId string `json:"chain_id"`
 }
 
@@ -23,9 +23,9 @@ type RequestBodyGetVerificationKeyById struct {
 }
 
 // RequestBody is the structure for the incoming JSON request
-type RequestBodyAddExecutionLayer struct {
+type RequestBodyAddStation struct {
 	VerificationKey []byte `json:"verification_key"`
-	ChainInfo       string `json:"chain_info"`
+	StationInfo     string `json:"chain_info"`
 }
 
 // RequestBodyAddBatch

@@ -36,14 +36,15 @@ func StartAPI(wg *sync.WaitGroup, client cosmosclient.Client, ctx context.Contex
 	// * Register the Handlers / Routers
 
 	// add execution layer
+	/*
 	router.POST("/addexelayer", func(c *gin.Context) {
 		handler.HandlePostAddExecutionLayer(c, client, ctx, account, addr, db, sAPI)
 	})
+	*/
+	router.POST("/add-station", func(c *gin.Context) {
+		handler.HandlePostAddStation(c, client, ctx, account, addr, db, sAPI)
+	})
 
-	// get execution layer by address
-	// router.GET("/get_admin_exelayer", func(c *gin.Context) {
-	// 	handler.HandleGetAdminExecutionLayer(c, client, ctx, account, addr, db, sAPI)
-	// })
 
 	// get execution layer by address
 	router.GET("/getexelayer_by_address", func(c *gin.Context) {
@@ -108,4 +109,5 @@ func StartAPI(wg *sync.WaitGroup, client cosmosclient.Client, ctx context.Contex
 	if err := router.Run(port); err != nil {
 		fmt.Println("Error starting the server:", err)
 	}
+
 }
