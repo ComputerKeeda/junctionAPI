@@ -4,7 +4,6 @@ go 1.21.1
 
 require (
 	github.com/ComputerKeeda/junction v0.0.0-20240124121626-51b5cb50f7ea
-	github.com/airchains-network/airsettle v0.0.3
 	github.com/airchains-network/gnark v1.0.1
 	github.com/consensys/gnark-crypto v0.12.2-0.20231208203441-d4eab6ddd2af
 	github.com/cosmos/cosmos-sdk v0.47.5

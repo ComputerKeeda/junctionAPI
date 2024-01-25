@@ -17,7 +17,7 @@ Sample Response Body:
 import (
 	"context"
 
-	"github.com/ComputerKeeda/junctionAPI/chain"
+	// "github.com/ComputerKeeda/junctionAPI/chain"
 	"github.com/gin-gonic/gin"
 	"github.com/ignite/cli/ignite/pkg/cosmosaccount"
 	cosmosclient "github.com/ignite/cli/ignite/pkg/cosmosclient"
@@ -27,11 +27,13 @@ import (
 // HandlePostAPI handles the POST request
 func HandlePostDeleteExecutionLayer(c *gin.Context, client cosmosclient.Client, ctx context.Context, account cosmosaccount.Account, addr string, dbIPaddress *leveldb.DB, sAPI string) {
 
-	success, data, error_msg := chain.DeleteExecutionLayer(client, ctx, account, addr, sAPI)
-	if !success {
-		respondWithError(c, error_msg)
-		return
-	}
+	// success, data, error_msg := chain.DeleteExecutionLayer(client, ctx, account, addr, sAPI)
+	// if !success {
+	// 	respondWithError(c, error_msg)
+	// 	return
+	// }
+
+	data:=""
 
 	respondWithSuccess(c, data, "delete execution layer successfully")
 	return

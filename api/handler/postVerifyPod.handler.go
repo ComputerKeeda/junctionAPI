@@ -2,8 +2,6 @@ package handler
 
 import (
 	"context"
-	"fmt"
-
 	"github.com/ComputerKeeda/junctionAPI/chain"
 	"github.com/ComputerKeeda/junctionAPI/model"
 	"github.com/gin-gonic/gin"
