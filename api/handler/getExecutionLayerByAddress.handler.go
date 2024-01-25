@@ -32,7 +32,7 @@ import (
 func HandleGetExecutionLayerByAddress(c *gin.Context, client cosmosclient.Client, ctx context.Context, account cosmosaccount.Account, addr string, dbIPaddress *leveldb.DB, sAPI string) {
 
 	// Parse the request body into a struct
-	var requestBody model.RequestBodyGetExecutionLayerByAddress
+	var requestBody model.RequestBodyGetStationByAddress
 	if err := c.BindJSON(&requestBody); err != nil {
 		respondWithError(c, "Invalid JSON format")
 		return
@@ -45,7 +45,7 @@ func HandleGetExecutionLayerByAddress(c *gin.Context, client cosmosclient.Client
 		return
 	}
 
-	success, chainDetails := chain.GetExecutionLayerByAddress(Address, sAPI)
+	success, chainDetails := chain.GetStationByAddress(Address, sAPI)
 	if success {
 		respondWithSuccess(c, chainDetails, "get execution layer successfully")
 		return

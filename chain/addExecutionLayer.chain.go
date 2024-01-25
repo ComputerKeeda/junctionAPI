@@ -10,31 +10,40 @@ import (
 	"github.com/ignite/cli/ignite/pkg/cosmosclient"
 )
 
-func AddExecutionLayer(verificationKey []byte, chainInfo string, client cosmosclient.Client, ctx context.Context, account cosmosaccount.Account, addr string, sAPI string) (status bool, data string, error string) {
+func AddStation(verificationKey []byte, stationInfo string, client cosmosclient.Client, ctx context.Context, account cosmosaccount.Account, addr string, sAPI string) (status bool, data string, error string) {
 
-	newUUID := uuid.New().String()
+	newSatationId := uuid.New().String()
 
 	msg := &types.MsgInitStation{
 		Creator:         addr,
 		VerificationKey: verificationKey,
-		StationInfo:     chainInfo,
-		StationId:       newUUID,
+		StationInfo:     stationInfo,
+		StationId:       newSatationId,
 	}
 
 	res, err := client.BroadcastTx(ctx, account, msg)
 	if err != nil {
+		fmt.Println(res.TxHash)
+
 		error_msg := formatErrorMessage(err)
 		return false, "error in transaction", error_msg
 	}
+	// fmt.Println(res.TxHash)
 
-	// // get execution layer by address
-	// success, chainId := GetExecutionLayerByAddress(addr, sAPI)
-	// if !success {
-	// 	return false, "", "error in receiving execution layer"
-	// }
+	// get station ID by address
+	success, chainId := GetStationByAddress(addr, sAPI)
+	if !success {
+		return false, "", "error in receiving station ID"
+	}
+	fmt.Println(chainId)
 
-	fmt.Println(res)
+	if chainId != newSatationId {
+		// check if chainID and newUUID are same
+		return false, "", "error in receiving station ID"
+	}
+
+	// print tx hash
 	fmt.Println(res.TxHash)
 
-	return true, newUUID, "nil"
+	return true, newSatationId, "nil"
 }

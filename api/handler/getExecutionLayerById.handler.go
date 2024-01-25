@@ -32,7 +32,7 @@ import (
 func HandleGetExecutionLayerById(c *gin.Context, client cosmosclient.Client, ctx context.Context, account cosmosaccount.Account, addr string, dbIPaddress *leveldb.DB, sAPI string) {
 
 	// Parse the request body into a struct
-	var requestBody model.RequestBodyGetExecutionLayerById
+	var requestBody model.RequestBodyGetStationById
 	if err := c.BindJSON(&requestBody); err != nil {
 		respondWithError(c, "Invalid JSON format")
 		return
@@ -45,10 +45,10 @@ func HandleGetExecutionLayerById(c *gin.Context, client cosmosclient.Client, ctx
 		return
 	}
 
-	success, chainDetails := chain.GetExecutionLayerById(chainId, sAPI)
+	success, chainDetails := chain.GetStationById(chainId, sAPI)
 
 	if success {
-		respondWithSuccess(c, chainDetails, "get execution layer successfully")
+		respondWithSuccess(c, chainDetails, "get station successfully")
 		return
 	} else {
 		respondWithError(c, "chain id not found in this address")
