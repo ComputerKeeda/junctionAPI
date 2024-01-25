@@ -2,7 +2,7 @@ package model
 
 type StationResponseBody struct {
 	Station struct {
-		Tracks			   []string `json:"tracks"`
+		Tracks               []string `json:"tracks"`
 		VotingPower          []string `json:"votingPower"`
 		LatestPod            string   `json:"latestPod"`
 		LatestMerkleRootHash string   `json:"latestMerkleRootHash"`
@@ -13,12 +13,21 @@ type StationResponseBody struct {
 	} `json:"station"`
 }
 
+type GetLatestSubmittedPodResponseBody struct {
+	PodNumber string `json:"podNumber"`
+	Message   string `json:"message"`
+}
+
+type GetLatestVerifiedPodResponseBody struct {
+	PodNumber string `json:"podNumber"`
+	Message   string `json:"message"`
+}
+
 type StationErrorResponseBody struct {
 	Code    int      `json:"code"`
 	Message string   `json:"message"`
 	Details []string `json:"details"`
 }
-
 
 type ExecutionLayerErrorResponseBody struct {
 	Code    int      `json:"code"`
@@ -30,10 +39,6 @@ type VerificationKeyResponseBody struct {
 	Vkey string `json:"vkey"`
 }
 
-// possible response body
-// {"exelayer":[],"pagination":{"next_key":null,"total":"0"}}
-// {"exelayer":{"validator":["air15nt3l400td56dhvy7tk4pehv2rqu2fw53fw59t"],"votingPower":["100"],"latestBatch":"0","latestMerkleRootHash":"0","verificationKey":"/verificationKey/fddd253b-8097-431b-bb94-a158fd51fdd8/","chainInfo":"some information about the chain, e.g. its made for DeFi","id":"fddd253b-8097-431b-bb94-a158fd51fdd8","creator":"air15nt3l400td56dhvy7tk4pehv2rqu2fw53fw59t"}}
-// {"exelayer":[{"validator":["air1r34mk94d74523l6yqwp32dg5durs0vz6mxscds"],"votingPower":["100"],"latestBatch":"0","latestMerkleRootHash":"0","verificationKey":"/verificationKey/65304c71-c05a-4ea7-a1d2-b900a95b778b/","chainInfo":"verificationkey","id":"65304c71-c05a-4ea7-a1d2-b900a95b778b","creator":"air1r34mk94d74523l6yqwp32dg5durs0vz6mxscds"},{"validator":["air15nt3l400td56dhvy7tk4pehv2rqu2fw53fw59t"],"votingPower":["100"],"latestBatch":"0","latestMerkleRootHash":"0","verificationKey":"/verificationKey/fddd253b-8097-431b-bb94-a158fd51fdd8/","chainInfo":"some information about the chain, e.g. its made for DeFi","id":"fddd253b-8097-431b-bb94-a158fd51fdd8","creator":"air15nt3l400td56dhvy7tk4pehv2rqu2fw53fw59t"}],"pagination":{"next_key":null,"total":"2"}}
 type AllExecutionLayersResponseBody struct {
 	ExeLayer []struct {
 		Validator            []string `json:"validator"`
@@ -58,9 +63,21 @@ type BatchResponseBody struct {
 		PrevMerkleRootHash string `json:"prevMerkleRootHash"`
 		MerkleRootHash     string `json:"merkleRootHash"`
 		ZkProof            string `json:"zkProof"`
-		Witness             string `json:"witness"`
+		Witness            string `json:"witness"`
 		Verified           string `json:"verified"`
 		BatchSubmitter     string `json:"batchSubmitter"`
 		BatchVerifier      string `json:"batchVerifier"`
 	} `json:"batch"`
+}
+
+type PodResponseBody struct {
+	Pods struct {
+		PodNumber              uint64 `json:"pod_number"`
+		MerkleRootHash         string `json:"merkle_root_hash"`
+		PreviousMerkleRootHash string `json:"previous_merkle_root_hash"`
+		ZkProof                []byte `json:"zk_proof"`
+		Witness                []byte `json:"witness"`
+		Timestamp              uint64 `json:"timestamp"`
+		IsVerified             bool   `json:"is_verified"`
+	} `json:"pods"`
 }

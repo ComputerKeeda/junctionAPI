@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
 	"github.com/ComputerKeeda/junction/x/junction/types"
 	"github.com/ComputerKeeda/junctionAPI/model"
 
@@ -14,30 +15,62 @@ import (
 
 func VerifyPod(podDetails model.RequestBodyVerifyPod, client cosmosclient.Client, ctx context.Context, account cosmosaccount.Account, addr string, sAPI string) (status bool, data string, error string) {
 
+	stationId := podDetails.StationId
+	podNumber := podDetails.PodNumber
+	merkleRootHash := podDetails.MerkleRootHash
+	previousMerkleRootHash := podDetails.PreviousMerkleRootHash
+	zkProof := podDetails.ZkProof
+
 	var proof *bls12381.Proof
-	err := json.Unmarshal(proof_byte, &proof)
+	err := json.Unmarshal(zkProof, &proof)
 	if err != nil {
 		return false, "error in Unmarshal proof", err.Error()
 	}
 
+	// check if the pod is already verified
+	success, latestVerifiedPodNumber := GetLaterstVerifiedPod(sAPI, stationId)
+	if !success {
+		return false, "error in getting latest verified pod number", "nil"
+	}
+	// check if latestVerifiedPodNumber is equal to podNumber
+	if podNumber != latestVerifiedPodNumber+1 {
+		return false, "pod already verified or wrong", "nil"
+	}
+
+	// call verify pod in blockchain
 	msg := &types.MsgVerifyPod{
 		Creator:                addr,
-		StationId:              podDetails.StationId,
-		PodNumber:              podDetails.PodNumber,
-		MerkleRootHash:         podDetails.MerkleRootHash,
-		PreviousMerkleRootHash: podDetails.PreviousMerkleRootHash,
-		ZkProof:                podDetails.ZkProof,
+		StationId:              stationId,
+		PodNumber:              podNumber,
+		MerkleRootHash:         merkleRootHash,
+		PreviousMerkleRootHash: previousMerkleRootHash,
+		ZkProof:                zkProof,
 	}
-
 	txResp, err := client.BroadcastTx(ctx, account, msg)
 	if err != nil {
-		error_msg := formatErrorMessage(err)
-		return false, "error in transaction", error_msg
+
+		fmt.Println(txResp.TxHash)
+
+		errMsg := formatErrorMessage(err)
+		return false, "error in transaction", errMsg
+		
 	}
 
-	// get pod details, and check if its verified
-	GetPod(podDetails.PodNumber, client, ctx, account, addr, sAPI)
+	// get the latest verified pod number
+	success, latestVerifiedPodNumber = GetLaterstVerifiedPod(sAPI, stationId)
+	if !success {
+		return false, "error in getting latest verified pod number after transaction is success", "nil"
+	}
+	// check if latestVerifiedPodNumber is equal to podNumber
+	if podNumber != latestVerifiedPodNumber {
+		return false, "pod not verified but transaction success", "nil"
+	}
+	//
+	//fmt.Println("txHash:", txResp.TxHash)
+	//fmt.Println("pod number:", podNumber)
 
-	data = fmt.Sprintf(`{"txDetails":"%s"}`, txResp)
+	data = txResp.TxHash
+
+
 	return true, data, "verify batch successfully"
 }

@@ -33,7 +33,7 @@ import (
 func HandleGetBatch(c *gin.Context, client cosmosclient.Client, ctx context.Context, account cosmosaccount.Account, addr string, dbIPaddress *leveldb.DB, sAPI string) {
 
 	// Parse the request body into a struct
-	var requestBody model.RequestBodyGetBatch
+	var requestBody model.RequestBodyGetPod
 	if err := c.BindJSON(&requestBody); err != nil {
 		respondWithError(c, "Invalid JSON format")
 		return

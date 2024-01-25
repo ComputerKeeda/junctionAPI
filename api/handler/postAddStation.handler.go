@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/ComputerKeeda/junctionAPI/chain"
 	"github.com/ComputerKeeda/junctionAPI/model"
@@ -41,13 +42,14 @@ func HandlePostAddStation(c *gin.Context, client cosmosclient.Client, ctx contex
 	// get execution layer by address
 	success, chainId := chain.GetStationByAddress(addr, sAPI)
 	if success {
+		fmt.Println("Chainid: ", chainId)
 		respondWithSuccess(c, chainId, "chain already exists with this address")
 		return
 	}
 
-	success, data, error_msg := chain.AddStation(verificationKey, stationInfo, client, ctx, account, addr, sAPI)
+	success, data, errMsg := chain.AddStation(verificationKey, stationInfo, client, ctx, account, addr, sAPI)
 	if !success {
-		respondWithError(c, error_msg)
+		respondWithError(c, errMsg)
 		return
 	}
 

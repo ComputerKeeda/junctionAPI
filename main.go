@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
-	"sync"
-	"time"
-
 	"github.com/ComputerKeeda/junctionAPI/admin"
 	"github.com/ComputerKeeda/junctionAPI/api"
 	"github.com/ComputerKeeda/junctionAPI/chain"
 	"github.com/ComputerKeeda/junctionAPI/config"
+	"sync"
+	"time"
 )
 
 func main() {
+
+	// success, latestFetchedPodNumber := chain.GetLatestSubmittedPod("http://192.168.1.14:1317/", "76c92439-7890-41fb-bef3-3ba18ab34954")
+	// fmt.Println(success, latestFetchedPodNumber)
 
 	// connect to junction && create admin wallet if do not exists
 	client, account, addr, ctx, sAPI := config.JunctionConnection()
